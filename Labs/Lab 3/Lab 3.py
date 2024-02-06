@@ -186,20 +186,55 @@ print("")
 print('Problem 3')
 
 # 3a
+
 f1 = lambda x: x*(1+((7-x**5)/(x**2)))**3
-''' 
-fixed point is alpha1 = 1.4987....
-'''
 
 Nmax = 100
 tol = 1e-10
 
-''' test f1 '''
-x0 = 1
+# when x0 = 1, it overflows the function
+x0 = 7**(1/5) #verify that x=7^(1/5) is a fixed point for this function
 [xstar,ier] = fixedpt(f1,x0,tol,Nmax)
-print('the approximate fixed point is:',xstar)
+print('the approximate fixed point for 3a is:',xstar)
 print('f1(xstar):',f1(xstar))
 print('Error message reads:',ier)
 
 
 
+# 3b
+f1 = lambda x: x-((x**5-7)/(x**2))
+
+Nmax = 100
+tol = 1e-10
+
+# when x0 = 1, it overflows the function
+x0 = 7**(1/5)
+[xstar,ier] = fixedpt(f1,x0,tol,Nmax)
+print('the approximate fixed point for 3b is:',xstar)
+print('f1(xstar):',f1(xstar))
+print('Error message reads:',ier)
+
+
+# 3c
+f1 = lambda x: x-((x**5-7)/(5*x**4))
+
+Nmax = 100
+tol = 1e-10
+
+x0 = 1
+[xstar,ier] = fixedpt(f1,x0,tol,Nmax)
+print('the approximate fixed point for 3c is:',xstar)
+print('f1(xstar):',f1(xstar))
+print('Error message reads:',ier)
+
+# 3d
+f1 = lambda x: x-((x**5-7)/(12))
+
+Nmax = 100
+tol = 1e-10
+
+x0 = 1
+[xstar,ier] = fixedpt(f1,x0,tol,Nmax)
+print('the approximate fixed point for 3d is:',xstar)
+print('f1(xstar):',f1(xstar))
+print('Error message reads:',ier)
