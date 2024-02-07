@@ -9,6 +9,7 @@ LHS = 10**(-16)*10**(-9)
 for n in range(100):
     RHS = ((math.exp(x))*x**(n+1))/(math.factorial(n+1))
     if LHS > RHS:
-        print("Number of n is ", n)
+        print("Number of n is ", n-1) # n-1 because this n will make LHS > RHS
         break
+
     
