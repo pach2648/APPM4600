@@ -30,7 +30,7 @@ def driver():
     print("The number of iteration after applying Aitken's method is:", iteration)
 
     alpha = order_of_conv(p_approx)
-    print(alpha)
+    print("The order of convergence is:",alpha)
     
 # define routines
 def fixedpt(f,x0,tol,Nmax):
@@ -79,11 +79,6 @@ def order_of_conv(p_hat):
         alpha[i] = num_log / dem_log
     return alpha
 
-#def order_of_conv(pa):
-#    alpha = np.zeros_like(pa)
-#    for i in range(len(pa)-2):
-#        alpha[i] = (np.log((pa[i+1]-pa[i])/(pa[i]-pa[i-1])))/(np.log((pa[i]-pa[i+1])/(pa[i-1]*pa[i-2])))
-#
-#    return alpha
+
 
 driver()
