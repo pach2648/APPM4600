@@ -32,16 +32,13 @@ def driver():
     # Hybrid method
     # Find the initial guess from bisection
     print('The Hybrid method')
-    [astar,ier, count] = bisection_newton_basin_of_conv(f,dfdx,d2fdx2,a,b,tol)
-    print("-the initial guess to use in Newtom's from adjusted bisection is",astar)
-    print('-the error message reads:',ier)
-    # Use the initial guess from bisection
-    [p,pstar,info,it] = newton(f,dfdx,astar,tol,Nmax)
-    print('-the approximate root from hybrid is', '%16.16e' %pstar)
-    print('-the number of iteration of hybrid is', it)
+    [p2,pstar2,info2,it2] = hybrid(f,dfdx,d2fdx2,a,b,tol,Nmax)
+    print('-the approximate root from hybrid is', '%16.16e' %pstar2)
+    print('-the error message reads:',info2)
+    print('-the number of iteration of hybrid is', it2)
 
 ######################################################
-# define routines (I have 3 routines)
+# define routines (I have 4 subroutines to use in this code)
 ######################################################
 # Newton's method from class
 def newton(f,fp,p0,tol,Nmax):
@@ -137,6 +134,14 @@ def bisection_newton_basin_of_conv(f,dfdx,d2fdx2,a,b,tol):
     astar = d
     ier = 0
     return [astar, ier, count]
+
+# Hybrid method
+def hybrid(f,dfdx,d2fdx2,a,b,tol,Nmax):
+    # Find the initial guess from bisection
+    [astar,ier, count] = bisection_newton_basin_of_conv(f,dfdx,d2fdx2,a,b,tol)
+    # Use the initial guess from bisection
+    [p,pstar,info,it] = newton(f,dfdx,astar,tol,Nmax)
+    return [p,pstar,info,it]
 
 # Bisection method from class
 def normal_bisection(f,a,b,tol):
