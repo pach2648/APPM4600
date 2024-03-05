@@ -7,7 +7,8 @@ def driver():
 
     f = lambda x: 1 / (1 + (10*x)**2)
 
-    N = 10
+    #N = 17
+    N = 2
     ''' interval'''
     a = -1
     b = 1
@@ -29,7 +30,8 @@ def driver():
     yeval_dd = np.zeros(Neval+1)
 
     # Monomial expansion
-    coeffs_mono = np.polyfit(xint, yint, N)
+    #coeffs_mono = np.polyfit(xint, yint, N)
+    coeffs_mono = evalMono(f, Neval)
     yeval_mono = np.polyval(coeffs_mono, xeval)
 
     # Lagrange Polynomial and Newton-Divided Differences
@@ -115,6 +117,15 @@ def evalDDpoly(xval, xint,y,N):
 
     return yeval
 
-       
+def evalMono(f, N):
+    h = 2 / (N-1)
+    x = np.zeros(N+1)
+    y = np.zeros(N+1)
+    for j in range(N+1):
+        x[j] = -1 + (j-1)*h
+        y[j] = f(x[j])
+    V = np.vander(x)
+    coeff = np.linalg.solve(V, y)
+    return coeff
 
 driver()        
