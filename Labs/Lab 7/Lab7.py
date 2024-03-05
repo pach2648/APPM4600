@@ -7,8 +7,8 @@ def driver():
 
     f = lambda x: 1 / (1 + (10*x)**2)
 
-    N = 17
-    #N = 2
+    #N = 17
+    N = 4
     ''' interval'''
     a = -1
     b = 1
@@ -58,6 +58,7 @@ def driver():
     plt.plot(xeval,yeval_l,'bs--',label='lagrange') 
     plt.plot(xeval,yeval_dd,'c.--',label='Newton DD')
     plt.plot(xeval,yeval_mono,'ko-',label='Monomial')
+    plt.title(f"The Approximations Plot When N=%d" % N)
     plt.legend()
 
     plt.figure()
@@ -67,7 +68,7 @@ def driver():
     plt.semilogy(xeval,err_l,'ro--',label='lagrange')
     plt.semilogy(xeval,err_dd,'bs--',label='Newton DD')
     plt.semilogy(xeval,err_mono,'ko-',label='Monomial')
-    
+    plt.title(f"The Errors Plot When N=%d" % N)
     plt.legend()
     plt.show()
 
