@@ -7,8 +7,8 @@ def driver():
 
     f = lambda x: 1 / (1 + (10*x)**2)
 
-    #N = 17
-    N = 2
+    N = 17
+    #N = 2
     ''' interval'''
     a = -1
     b = 1
@@ -55,7 +55,6 @@ def driver():
     
     plt.figure()    
     plt.plot(xeval,fex,'ro-',label='Exact Values')
-    
     plt.plot(xeval,yeval_l,'bs--',label='lagrange') 
     plt.plot(xeval,yeval_dd,'c.--',label='Newton DD')
     plt.plot(xeval,yeval_mono,'ko-',label='Monomial')
@@ -65,9 +64,9 @@ def driver():
     err_mono = abs(yeval_mono-fex)
     err_l = abs(yeval_l-fex)
     err_dd = abs(yeval_dd-fex)
-    plt.semilogy(xeval,err_mono,'ko-',label='Monomial')
     plt.semilogy(xeval,err_l,'ro--',label='lagrange')
     plt.semilogy(xeval,err_dd,'bs--',label='Newton DD')
+    plt.semilogy(xeval,err_mono,'ko-',label='Monomial')
     
     plt.legend()
     plt.show()
