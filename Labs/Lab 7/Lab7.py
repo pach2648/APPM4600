@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 def driver():
 
 
-    f = lambda x: np.exp(x)
+    f = lambda x: 1 / (1 + (10*x)**2)
 
-    N = 3
+    N = 10
     ''' interval'''
-    a = 0
+    a = -1
     b = 1
    
    
@@ -22,9 +22,17 @@ def driver():
     ''' create points for evaluating the Lagrange interpolating polynomial'''
     Neval = 1000
     xeval = np.linspace(a,b,Neval+1)
+
+    # Initialize arrays for polynomial evaluations
+    yeval_mono = np.zeros(Neval+1)
     yeval_l= np.zeros(Neval+1)
     yeval_dd = np.zeros(Neval+1)
-  
+
+    # Monomial expansion
+    coeffs_mono = np.polyfit(xint, yint, N)
+    yeval_mono = np.polyval(coeffs_mono, xeval)
+
+    # Lagrange Polynomial and Newton-Divided Differences
     '''Initialize and populate the first columns of the 
      divided difference matrix. We will pass the x vector'''
     y = np.zeros( (N+1, N+1) )
@@ -44,21 +52,25 @@ def driver():
 
     ''' create vector with exact values'''
     fex = f(xeval)
-       
-
+    
     plt.figure()    
     plt.plot(xeval,fex,'ro-')
-    plt.plot(xeval,yeval_l,'bs--') 
-    plt.plot(xeval,yeval_dd,'c.--')
+    plt.plot(xeval,yeval_mono,label='Monomial')
+    plt.plot(xeval,yeval_l,'bs--',label='lagrange') 
+    plt.plot(xeval,yeval_dd,'c.--',label='Newton DD')
     plt.legend()
 
-    plt.figure() 
+    plt.figure()
+    err_mono = abs(yeval_mono-fex)
     err_l = abs(yeval_l-fex)
     err_dd = abs(yeval_dd-fex)
+    plt.semilogy(xeval,err_dd,label='Monomial')
     plt.semilogy(xeval,err_l,'ro--',label='lagrange')
     plt.semilogy(xeval,err_dd,'bs--',label='Newton DD')
+    
     plt.legend()
     plt.show()
+
 
 def eval_lagrange(xeval,xint,yint,N):
 
