@@ -8,7 +8,7 @@ def driver():
     f = lambda x: 1 / (1 + (10*x)**2)
 
     #N = 17
-    N = 4
+    N = 3
     ''' interval'''
     a = -1
     b = 1
@@ -45,9 +45,6 @@ def driver():
     for kk in range(Neval+1):
        yeval_l[kk] = eval_lagrange(xeval[kk],xint,yint,N)
        yeval_dd[kk] = evalDDpoly(xeval[kk],xint,y,N)
-          
-
-    
 
 
     ''' create vector with exact values'''
@@ -60,14 +57,16 @@ def driver():
     plt.plot(xeval,yeval_mono,'ko-',label='Monomial')
     plt.title(f"The Approximations Plot When N=%d" % N)
     plt.legend()
-
+    
     plt.figure()
     err_mono = abs(yeval_mono-fex)
     err_l = abs(yeval_l-fex)
     err_dd = abs(yeval_dd-fex)
+    error = np.sinc(xeval) #numpy.sinc(5x)
     plt.semilogy(xeval,err_l,'ro--',label='lagrange')
     plt.semilogy(xeval,err_dd,'bs--',label='Newton DD')
     plt.semilogy(xeval,err_mono,'ko-',label='Monomial')
+    plt.plot(xeval,error,'go-',label='Sinc(5x) function')
     plt.title(f"The Errors Plot When N=%d" % N)
     plt.legend()
     plt.show()
