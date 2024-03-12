@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 def evaluate_line(x0, y0, x1, y1, alpha):
     """
     Inputs: x0 : x-coordinate of the 1st point
@@ -30,3 +32,13 @@ alpha = 2.5
 
 result = evaluate_line(x0, y0, x1, y1, alpha)
 print("The y value of the line at alpha =", alpha, "is", result)
+
+# Plot the points and the linear spline
+plt.scatter([x0, x1], [y0, y1], color='red', label='Initial Points')
+plt.scatter(alpha, result, label='Alpha')
+plt.plot([x0, x1], [y0, y1], color='blue', label='Linear Spline')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Linear Spline Evaluation')
+plt.legend()
+plt.show()
