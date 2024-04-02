@@ -7,7 +7,7 @@ from scipy.integrate import quad
 def driver():
     
     # function you want to approximate
-    ##f = lambda x: math.exp(x)
+    #f = lambda x: math.exp(x)
     f = lambda x: 1/(1+x**2)
     
     # Interval of interest
@@ -18,7 +18,7 @@ def driver():
     w = lambda x: 1
     
     # order of approximation
-    n = 2
+    n = 10
     
     # Number of points you want to sample in [a,b]
     N = 1000
@@ -35,14 +35,17 @@ def driver():
     plt.figure()
     plt.plot(xeval,fex,'ro-', label= 'f(x)')
     plt.plot(xeval,pval,'bs--',label= 'Expansion')
+    plt.title("L^2 Approximation \n with Legendre polynomials of degree " + str(n))
     plt.legend()
     plt.show()
     
     err_l = abs(pval-fex)
     plt.semilogy(xeval,err_l,'ro--',label='error')
+    plt.title("Error of L^2 Approximation \n with Legendre polynomials of degree " + str(n))
     plt.legend()
     plt.show()
 
+# My prelab code
 def eval_legendre(n, x):
     # preallocate vector p with (n+1) zeros
     p = [0] * (n+1)
@@ -60,7 +63,7 @@ def eval_legendre_expansion(f,a,b,w,n,x):
     # This subroutine evaluates the Legendre expansion
 
     # Evaluate all the Legendre polynomials at x that are needed
-    # by calling your code from prelab
+    # by calling my code from prelab
     p = eval_legendre(n, x)
     # initialize the sum to 0
     pval = 0.0
