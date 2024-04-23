@@ -10,7 +10,7 @@ def driver():
      linear system'''
 
      '''' N = size of system'''
-     N = 100
+     N = 5000
      print("N =", N)
  
      ''' Right hand side'''
@@ -22,7 +22,7 @@ def driver():
      t1_start = perf_counter() 
      x2 = scila.solve(A,b)
      t1_stop = perf_counter()
-     print("Elapsed time:", t1_stop - t1_start)
+     print("Total time of normal solve:", t1_stop - t1_start)
      
      test = np.matmul(A,x2)
      r = la.norm(test-b)
@@ -60,12 +60,18 @@ def cal_lu(A,b):
      t1_start = perf_counter() 
      lu, piv = scila.lu_factor(A)
      t1_stop = perf_counter()
-     print("Elapsed time (Factor):", t1_stop - t1_start) 
+     t1 = t1_stop - t1_start
+     print("Elapsed time (Factor):", t1) 
 
-     t1_start = perf_counter()
+     t2_start = perf_counter()
      x = scila.lu_solve((lu, piv), b, trans = 0)
-     t1_stop = perf_counter()
-     print("Elapsed time (lu_solve):", t1_stop - t1_start)
+     t2_stop = perf_counter()
+     t2 = t2_stop - t2_start
+     print("Elapsed time (lu_solve):", t2)
+     print("Total time of Lu_solve:", t1+t2)
+
+     
+     return x
   
 if __name__ == '__main__':
       # run the drivers only if this is called from the command line
