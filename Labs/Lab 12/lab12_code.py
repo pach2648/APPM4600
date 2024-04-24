@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import numpy.linalg as la
 import scipy.linalg as scila
+import time
 from time import perf_counter
 
 def driver():
@@ -10,7 +11,7 @@ def driver():
      linear system'''
 
      '''' N = size of system'''
-     N = 5000
+     N = 1000
      print("N =", N)
  
      ''' Right hand side'''
@@ -19,10 +20,11 @@ def driver():
 
      x1 = cal_lu(A,b)
      
-     t1_start = perf_counter() 
+     t1_start = time.perf_counter_ns() 
      x2 = scila.solve(A,b)
-     t1_stop = perf_counter()
-     print("Total time of normal solve:", t1_stop - t1_start)
+     t1_stop = time.perf_counter_ns()
+     t_normal = t1_stop - t1_start
+     print("Total time of normal solve [ns]:", t_normal)
      
      test = np.matmul(A,x2)
      r = la.norm(test-b)
@@ -34,6 +36,12 @@ def driver():
      M = 5
      A = create_rect(N,M)     
      b = np.random.rand(N,1)
+
+     t1_start = time.perf_counter_ns() 
+     x = scila.solve(A.T @ A,A.T @ b)
+     t1_stop = time.perf_counter_ns()
+     t_QR = t1_stop - t1_start
+     print("Total time of QR solve [ns]:", t_QR)
      
 def create_rect(N,M):
      ''' this subroutine creates an ill-conditioned rectangular matrix'''
@@ -57,20 +65,19 @@ def create_rect(N,M):
      return B     
 
 def cal_lu(A,b):
-     t1_start = perf_counter() 
+     t1_start = time.perf_counter_ns() 
      lu, piv = scila.lu_factor(A)
-     t1_stop = perf_counter()
+     t1_stop = time.perf_counter_ns()
      t1 = t1_stop - t1_start
-     print("Elapsed time (Factor):", t1) 
+     print("Elapsed time (Factor) [ns]:", t1) 
 
-     t2_start = perf_counter()
+     t2_start = time.perf_counter_ns()
      x = scila.lu_solve((lu, piv), b, trans = 0)
-     t2_stop = perf_counter()
+     t2_stop = time.perf_counter_ns()
      t2 = t2_stop - t2_start
-     print("Elapsed time (lu_solve):", t2)
-     print("Total time of Lu_solve:", t1+t2)
+     print("Elapsed time (lu_solve) [ns]:", t2)
+     print("Total time of Lu_solve [ns]:", t1+t2)
 
-     
      return x
   
 if __name__ == '__main__':
