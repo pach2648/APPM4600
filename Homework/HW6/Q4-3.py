@@ -11,7 +11,7 @@ def gamma_function_gauss_laguerre(t, n):
         n : Number of quadrature points.
         
     Returns:
-        float: Approximation of the gamma function.
+        Approximation of the gamma function.
     """
     # Get the weights and abscissae for Gauss-Laguerre quadrature
     x, w = laggauss(n)
@@ -25,7 +25,7 @@ def gamma_function_gauss_laguerre(t, n):
 values_of_t = [2, 4, 6, 8, 10]
 
 # Number of quadrature points
-n = 57  # Adjust this based on desired accuracy
+n = 57  # The lowest value of n from part b
 
 # Compute and compare the results
 for t in values_of_t:
@@ -34,10 +34,13 @@ for t in values_of_t:
     
     # Compute using scipy's gamma function
     scipy_result = gamma(t)
+
+    # Compute relative error
+    rel_error = abs(gauss_laguerre_result - scipy_result) / scipy_result
     
     # Print the results
     print(f"t={t}:")
     print("Gauss-Laguerre Quadrature:", gauss_laguerre_result)
     print("Scipy's gamma function:", scipy_result)
-    print("Relative Error:", abs(gauss_laguerre_result - scipy_result) / scipy_result)
+    print("Relative Error:", rel_error)
     print()

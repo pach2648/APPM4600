@@ -6,13 +6,13 @@ def gamma_function_trapezoidal(t, a, b, n):
     Compute the value of the gamma function using the composite trapezoidal rule.
     
     Parameters:
-        t (float): Parameter of the gamma function.
-        a (float): Lower limit of integration.
-        b (float): Upper limit of integration.
-        n (int): Number of subintervals for trapezoidal rule.
+        t : Parameter of the gamma function.
+        a : Lower limit of integration.
+        b : Upper limit of integration.
+        n : Number of subintervals for trapezoidal rule.
         
     Returns:
-        float: Approximation of the gamma function.
+        Approximation of the gamma function.
     """
     # Step size
     h = (b - a) / n
@@ -34,7 +34,7 @@ values_of_t = [2, 4, 6, 8, 10]
 
 # Lower and upper limits of integration
 lower_limit = 0
-upper_limit = 10  # Random
+upper_limit = 10  # Trials and errors
 
 # Number of subintervals for the trapezoidal rule
 num_subintervals = [57, 73, 125, 237, 457]  # From the MATLAB function to compare the errors when they have the same number of subintervals
@@ -46,10 +46,13 @@ for i in range(5):
     
     # Compute using scipy's gamma function
     scipy_result = gamma(values_of_t[i])
+
+    #Compute the realtive error
+    rel_error = abs(trapezoidal_result - scipy_result) / scipy_result
     
     # Print the results
     print(f"t={values_of_t[i]}:")
     print("Trapezoidal Rule:", trapezoidal_result)
     print("Scipy's gamma function:", scipy_result)
-    print("Relative Error:", abs(trapezoidal_result - scipy_result) / scipy_result)
+    print("Relative Error:", rel_error)
     print()

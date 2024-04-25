@@ -24,7 +24,6 @@ for i = 1:length(values_of_t)
     
     % Display results
     fprintf('t = %d:\n', t);
-    %fprintf('Using quad:\n');
     fprintf('Result: %f\n', quad_results(i));
     fprintf('Number of function evaluations: %d\n', num_eval_quad(i));
     fprintf('Relative error: %f \n', rel_err(i));
