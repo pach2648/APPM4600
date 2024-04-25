@@ -7,8 +7,8 @@ def gamma_function_gauss_laguerre(t, n):
     Compute the value of the gamma function using Gauss-Laguerre quadrature.
     
     Parameters:
-        t (float): Parameter of the gamma function.
-        n (int): Number of quadrature points.
+        t : Parameter of the gamma function.
+        n : Number of quadrature points.
         
     Returns:
         float: Approximation of the gamma function.
@@ -16,12 +16,8 @@ def gamma_function_gauss_laguerre(t, n):
     # Get the weights and abscissae for Gauss-Laguerre quadrature
     x, w = laggauss(n)
     
-    # Transform x and w for the interval [0, infinity)
-    x_transformed = x + 1
-    w_transformed = w / np.exp(x)
-    
     # Compute the approximation of the gamma function
-    gamma_approx = np.sum(w_transformed * x_transformed**(t-1))
+    gamma_approx = np.sum(w * x**(t-1))
     
     return gamma_approx
 
@@ -29,7 +25,7 @@ def gamma_function_gauss_laguerre(t, n):
 values_of_t = [2, 4, 6, 8, 10]
 
 # Number of quadrature points
-n = 100  # Adjust this based on desired accuracy
+n = 57  # Adjust this based on desired accuracy
 
 # Compute and compare the results
 for t in values_of_t:
