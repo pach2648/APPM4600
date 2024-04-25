@@ -34,21 +34,21 @@ values_of_t = [2, 4, 6, 8, 10]
 
 # Lower and upper limits of integration
 lower_limit = 0
-upper_limit = 10  # Adjust this based on experimentation or analysis
+upper_limit = 10  # Random
 
 # Number of subintervals for the trapezoidal rule
-num_subintervals = 1000  # Adjust this based on experimentation or analysis
+num_subintervals = [57, 73, 125, 237, 457]  # From the MATLAB function to compare the errors when they have the same number of subintervals
 
 # Compute and compare the results
-for t in values_of_t:
+for i in range(5):
     # Compute using the trapezoidal rule
-    trapezoidal_result = gamma_function_trapezoidal(t, lower_limit, upper_limit, num_subintervals)
+    trapezoidal_result = gamma_function_trapezoidal(values_of_t[i], lower_limit, upper_limit, num_subintervals[i])
     
     # Compute using scipy's gamma function
-    scipy_result = gamma(t)
+    scipy_result = gamma(values_of_t[i])
     
     # Print the results
-    print(f"t={t}:")
+    print(f"t={values_of_t[i]}:")
     print("Trapezoidal Rule:", trapezoidal_result)
     print("Scipy's gamma function:", scipy_result)
     print("Relative Error:", abs(trapezoidal_result - scipy_result) / scipy_result)
